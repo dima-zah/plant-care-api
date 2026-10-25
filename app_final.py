@@ -1,7 +1,7 @@
 """Plant Care API - Сервис для ухода за комнатными растениями"""
 
 import logging
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic_settings import BaseSettings
 from pydantic import BaseModel
 
