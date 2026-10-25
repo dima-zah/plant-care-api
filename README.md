@@ -13,3 +13,55 @@
 git clone https://github.com/dima-zah/plant-care-api.git
 cd plant-care-api
 python3 -m venv .venv
+```
+
+Активируйте окружение:
+- **Linux/macOS**: `source .venv/bin/activate`
+- **Windows**: `.venv\Scripts\activate`
+
+### 2. Установка зависимостей
+```bash
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+### 3. Переменные окружения
+Приложение использует настройки из переменных окружения. Создайте файл `.env` на основе примера:
+```bash
+cp .env.example .env
+```
+Доступные переменные:
+- `APP_NAME` — название сервиса (по умолчанию: "Plant Care API")
+- `APP_VERSION` — версия приложения (по умолчанию: "1.0.0")
+- `DEFAULT_WATER_AMOUNT_ML` — стандартный объем воды для полива в мл (по умолчанию: 250)
+- `LOG_LEVEL` — уровень логирования: `INFO`, `DEBUG`, `WARNING` (по умолчанию: `INFO`)
+
+## ▶️ Запуск приложения
+Запустите сервер:
+```bash
+python -m uvicorn app_final:app --host 0.0.0.0 --port 8000
+```
+
+После запуска:
+- Основное приложение доступно по адресу: http://127.0.0.1:8000
+- Документация для тестирования маршрутов: http://127.0.0.1:8000/docs
+
+## 🧪 Запуск тестов
+
+Для запуска автоматических тестов убедитесь, что установлены dev-зависимости (`pip install -r requirements-dev.txt`), и выполните:
+```bash
+python -m pytest -v
+```
+Тесты проверяют работоспособность `/health`, добавление растений, маршруты с параметрами и обработку ошибок (404).
+
+## 🔍 Диагностика и мониторинг
+
+- **Health check**: `curl http://127.0.0.1:8000/health` (должен вернуть `{"status": "healthy"}`)
+- **Версия**: `curl http://127.0.0.1:8000/version` (вернет текущую версию и имя из переменных окружения)
+
+## 📦 Структура проекта
+- `app_final.py` — основной код приложения FastAPI.
+- `test_app.py` — набор автоматических тестов (pytest).
+- `requirements.txt` / `requirements-dev.txt` — зависимости для запуска и разработки.
+- `.github/workflows/ci.yml` — конфигурация GitHub Actions для автоматического тестирования и сборки артефакта.
+```
